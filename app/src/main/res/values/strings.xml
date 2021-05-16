@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CarAssistant</string>
+    <string name="title_home">Главная</string>
+    <string name="title_spent">Траты</string>
+    <string name="title_notifications">Напоминания</string>
+    <string name="notification_name">Название:</string>
+    <string name="remember">Напомнить:</string>
+    <string name="notification_frequency">Частота повторения:</string>
+    <string-array name="frequency">
+        <item>километров</item>
+        <item>дней</item>
+    </string-array>
+</resources>
