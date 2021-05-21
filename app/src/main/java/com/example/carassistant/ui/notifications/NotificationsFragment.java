@@ -1,13 +1,10 @@
 package com.example.carassistant.ui.notifications;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,13 +19,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class NotificationsFragment extends Fragment {
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         NotificationsViewModel notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
@@ -38,18 +35,20 @@ public class NotificationsFragment extends Fragment {
 
             }
         });
-        FloatingActionButton addNotifButton = (FloatingActionButton)root.findViewById(R.id.add_notif_but);
-        addNotifButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                AddNotificationFragment dialog = new AddNotificationFragment();
-                dialog.show(getChildFragmentManager(), "custom");
-            }
+
+        FloatingActionButton addNotifButton = root.findViewById(R.id.add_notif_but);
+        addNotifButton.setOnClickListener(view -> {
+            AddNotificationFragment dialog = new AddNotificationFragment();
+            dialog.show(getChildFragmentManager(), "custom");
         });
+
+
+
         return root;
-
-
-
     }
+
+
+
 
 
     public static class AddNotificationFragment extends DialogFragment {
@@ -72,9 +71,8 @@ public class NotificationsFragment extends Fragment {
                             dialog.cancel();
                         }
                     });
+
             return builder.create();
-
         }
-
     }
 }
