@@ -22,6 +22,7 @@
             android:drawableStart="@drawable/custom_name_icon"
             android:drawablePadding="10dp"
             android:hint="Название"
+
             android:inputType="text"
             android:textSize="16sp" />
 
@@ -36,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="20dp">
+            android:paddingTop="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -54,7 +55,7 @@
                     android:textSize="10sp" />
 
                 <EditText
-                    android:id="@+id/TextViewDate"
+                    android:id="@+id/edit_notif_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -81,7 +82,7 @@
                     android:textSize="10sp" />
 
                 <EditText
-                    android:id="@+id/editTextNumber2"
+                    android:id="@+id/edit_notif_range"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -102,24 +103,53 @@
             android:orientation="horizontal"
             android:paddingTop="15dp">
 
-            <EditText
-                android:id="@+id/editTextNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:baselineAligned="false"
-                android:drawableStart="@drawable/custom_repeat_icon"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Частота повторения"
-                android:inputType="number"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:layout_width="150dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:entries="@array/frequency"
-                android:paddingLeft="5dp" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="Повторять"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/editTextNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:drawableStart="@drawable/custom_repeat_icon"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Частота"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp" />
+
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:entries="@array/frequency"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

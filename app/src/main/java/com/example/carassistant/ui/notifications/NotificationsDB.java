@@ -18,9 +18,17 @@ public class NotificationsDB {
 
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "Name";
+    private static final String COLUMN_DATE = "Date";
+    private static final String COLUMN_WAY = "Way";
+    private static final String COLUMN_REPEATCOUNTER = "RepeatCounter";
+    private static final String COLUMN_REPEATTYPE = "RepeatType";
 
     private static final int NUM_COLUMN_ID = 0;
     private static final int NUM_COLUMN_NAME = 1;
+    private static final int NUM_COLUMN_DATE = 2;
+    private static final int NUM_COLUMN_WAY = 3;
+    private static final int NUM_COLUMN_REPEATCOUNTER = 4;
+    private static final int NUM_COLUMN_REPEATTYPE = 5;
 
 
     private SQLiteDatabase mDataBase;
@@ -30,15 +38,23 @@ public class NotificationsDB {
         mDataBase = mOpenHelper.getWritableDatabase();
     }
 
-    public long insert(String name) {
+    public long insert(String name,String date, int way, int repeatCounter, int repeatType) {
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_WAY, way);
+        cv.put(COLUMN_REPEATCOUNTER, repeatCounter);
+        cv.put(COLUMN_REPEATTYPE, repeatType);
         return mDataBase.insert(TABLE_NAME, null, cv);
     }
 
     public int update(Notifications nt) {
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_NAME, nt.getName());
+        cv.put(COLUMN_DATE, nt.getDate());
+        cv.put(COLUMN_WAY, nt.getWay());
+        cv.put(COLUMN_REPEATCOUNTER, nt.getRepeatCounter());
+        cv.put(COLUMN_REPEATTYPE, nt.getRepeatType());
 
         return mDataBase.update(TABLE_NAME, cv, COLUMN_ID + " = ?",new String[] { String.valueOf(nt.getId())});
     }
@@ -57,7 +73,11 @@ public class NotificationsDB {
 
         mCursor.moveToFirst();
         String name = mCursor.getString(NUM_COLUMN_NAME);
-        return new Notifications(id, name);
+        String date = mCursor.getString(NUM_COLUMN_DATE);
+        int way = mCursor.getInt(NUM_COLUMN_WAY);
+        int repeatCounter = mCursor.getInt(NUM_COLUMN_REPEATCOUNTER);
+        int repeatType = mCursor.getInt(NUM_COLUMN_REPEATTYPE);
+        return new Notifications(id, name, date, way, repeatCounter, repeatType);
     }
 
     public ArrayList<Notifications> selectAll() {
@@ -69,7 +89,11 @@ public class NotificationsDB {
             do {
                 long id = mCursor.getLong(NUM_COLUMN_ID);
                 String name = mCursor.getString(NUM_COLUMN_NAME);
-                arr.add(new Notifications(id, name));
+                String date = mCursor.getString(NUM_COLUMN_DATE);
+                int way = mCursor.getInt(NUM_COLUMN_WAY);
+                int repeatCounter = mCursor.getInt(NUM_COLUMN_REPEATCOUNTER);
+                int repeatType = mCursor.getInt(NUM_COLUMN_REPEATTYPE);
+                arr.add(new Notifications(id, name, date, way, repeatCounter, repeatType));
             } while (mCursor.moveToNext());
         }
         return arr;
@@ -84,7 +108,11 @@ public class NotificationsDB {
         public void onCreate(SQLiteDatabase db) {
             String query = "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NAME+ " TEXT);";
+                    COLUMN_NAME+ " TEXT, " +
+                    COLUMN_DATE+ " TEXT, " +
+                    COLUMN_WAY + " INT, " +
+                    COLUMN_REPEATCOUNTER + " INT, " +
+                    COLUMN_REPEATTYPE + " INT);";
             db.execSQL(query);
         }
 
