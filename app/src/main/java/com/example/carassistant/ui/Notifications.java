@@ -3,10 +3,12 @@ package com.example.carassistant.ui;
 import java.io.Serializable;
 
 public class Notifications implements Serializable {
-    private long id;
-    private String name, date;
-    private int way, repeatCounter;
-    private int repeatType;
+    private final long id;
+    private final String name;
+    private final String date;
+    private final int way;
+    private final int repeatCounter;
+    private final int repeatType;
 
     public Notifications (long id, String name, String date, int way, int repeatCounter, int repeatType) {
         this.id = id;

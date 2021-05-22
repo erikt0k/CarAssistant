@@ -1,5 +1,6 @@
 package com.example.carassistant.ui.notifications;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -31,7 +32,7 @@ public class NotificationsDB {
     private static final int NUM_COLUMN_REPEATTYPE = 5;
 
 
-    private SQLiteDatabase mDataBase;
+    private final SQLiteDatabase mDataBase;
 
     public NotificationsDB(Context context) {
         OpenHelper mOpenHelper = new OpenHelper(context);
@@ -81,9 +82,9 @@ public class NotificationsDB {
     }
 
     public ArrayList<Notifications> selectAll() {
-        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
 
-        ArrayList<Notifications> arr = new ArrayList<Notifications>();
+        ArrayList<Notifications> arr = new ArrayList<>();
         mCursor.moveToFirst();
         if (!mCursor.isAfterLast()) {
             do {
@@ -99,7 +100,7 @@ public class NotificationsDB {
         return arr;
     }
 
-    private class OpenHelper extends SQLiteOpenHelper {
+    private static class OpenHelper extends SQLiteOpenHelper {
 
         OpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

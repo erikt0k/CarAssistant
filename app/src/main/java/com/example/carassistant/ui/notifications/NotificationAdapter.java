@@ -1,7 +1,5 @@
 package com.example.carassistant.ui.notifications;
 
-import android.app.Notification;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +13,10 @@ import com.example.carassistant.ui.Notifications;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-    Context context;
     ArrayList<Notifications> notificationsList;
-    RecyclerView rvNotifications;
 
 
     public NotificationAdapter(ArrayList<Notifications> notificationsList){
