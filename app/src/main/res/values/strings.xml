@@ -10,4 +10,13 @@
         <item>километров</item>
         <item>дней</item>
     </string-array>
+    <string-array name="spending_type_array">
+        <item>Заправка</item>
+        <item>Мойка</item>
+        <item>Сервис</item>
+        <item>Парковка</item>
+        <item>Платный проезд</item>
+        <item>Страховка</item>
+        <item>Налог</item>
+    </string-array>
 </resources>

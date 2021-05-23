@@ -1,18 +1,21 @@
 package com.example.carassistant.ui.notifications;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,10 +33,10 @@ import java.util.Calendar;
 
 public class NotificationsFragment extends Fragment {
     static NotificationsDB db;
-    ArrayList<Notifications> notifList, bobik;
-    RecyclerView rvNotifications;
+    static ArrayList<Notifications> notifList;
+    static RecyclerView rvNotifications;
     RecyclerView.LayoutManager layoutManager;
-    NotificationAdapter notificationAdapter;
+    static NotificationAdapter notificationAdapter;
 
 
 
@@ -41,17 +44,17 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         db = new NotificationsDB(this.getContext());
         notifList = db.selectAll();
-        bobik = notifList;
         final ViewGroup nullParent = null;
         View v = inflater.inflate(R.layout.fragment_notifications, nullParent);
         rvNotifications = v.findViewById(R.id.notif_rv);
         rvNotifications.addItemDecoration(new DividerItemDecoration(v.getContext(), DividerItemDecoration.VERTICAL));
         rvNotifications.setHasFixedSize(true);
+        rvNotifications.setItemAnimator(new DefaultItemAnimator());
         layoutManager = new LinearLayoutManager(v.getContext());
         rvNotifications.setLayoutManager(layoutManager);
-        System.out.println(bobik);
-        notificationAdapter = new NotificationAdapter(bobik);
+        notificationAdapter = new NotificationAdapter(db.selectAll());
         rvNotifications.setAdapter(notificationAdapter);
+
 
 
         NotificationsViewModel notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
@@ -69,7 +72,10 @@ public class NotificationsFragment extends Fragment {
 
     public static void dbInput(Notifications nt){
         db.insert(nt.getName(), nt.getDate(), nt.getWay(), nt.getRepeatCounter(), nt.getRepeatType());
-
+    }
+    static void updateList() {
+        notificationAdapter.setArrayMyData(db.selectAll());
+        notificationAdapter.notifyDataSetChanged();
     }
 
 
@@ -77,22 +83,46 @@ public class NotificationsFragment extends Fragment {
 
 
     public static class AddNotificationFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-        EditText etDate, etName, etRange;
+        EditText etDate, etName, etRange, etRepeatValue;
+        Spinner spinnerType;
         @NotNull
         @Override
         public AlertDialog onCreateDialog(Bundle savedInstanceState) {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
             View v = inflater.inflate(R.layout.add_notif_fragment, null);
-            etDate = v.findViewById(R.id.edit_notif_date);
-            etName=v.findViewById(R.id.edit_notif_name);
-            etRange=v.findViewById(R.id.notif_range);
+            etDate = v.findViewById(R.id.edit_spending_date);
+            etName=v.findViewById(R.id.edit_spending_name);
+            etRange=v.findViewById(R.id.edit_notif_range);
+            etRepeatValue = v.findViewById(R.id.edit_spending_money);
+            spinnerType = v.findViewById(R.id.type_spinner);
             builder.setView(v)
                     // Add action buttons
-                    .setPositiveButton("Сохранить", (dialog, id) -> {
-                        Notifications nt = new Notifications(0, etName.getText().toString(), etDate.getText().toString(), 3, 1, 1);
-                        dbInput(nt);
+                    .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            byte rangeType;
+                            int range, repeat;
+                            if (spinnerType.getSelectedItem().toString().equals("километров")) {
+                                rangeType = 1;
+                            } else if (spinnerType.getSelectedItem().toString().equals("дней"))
+                                rangeType = 2;
+                            else return;
+
+                            if (etRange.getText().toString().isEmpty())
+                                range = 0;
+                            else range=(Integer.parseInt(etRange.getText().toString()));
+
+                            if (etRepeatValue.getText().toString().isEmpty()) {
+                                repeat = 0;
+                                rangeType = 0;
+                            }
+
+                            else repeat=(Integer.parseInt(etRange.getText().toString()));
+                            Notifications nt = new Notifications(0, etName.getText().toString(), etDate.getText().toString(), range, repeat, rangeType);
+                            dbInput(nt);
+                            updateList();
+                        }
                     })
                     .setNegativeButton("Отмена", (dialog, id) -> dialog.cancel());
 

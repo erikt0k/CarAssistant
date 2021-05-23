@@ -10,13 +10,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notif_rv"
         android:layout_width="355dp"
-        android:layout_height="629dp"
+        android:layout_height="600dp"
+        android:layoutAnimation="@anim/layout_animation"
         app:layoutManager="LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016">
+
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -28,7 +31,7 @@
         android:layout_margin="16dp"
         android:layout_marginBottom="204dp"
         android:contentDescription="TODO"
-        app:backgroundTint="#34ECC2"
+        app:backgroundTint="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

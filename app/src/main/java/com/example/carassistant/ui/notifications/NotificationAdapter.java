@@ -1,8 +1,10 @@
 package com.example.carassistant.ui.notifications;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +43,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.tvName.setText(notification.getName());
         holder.tvDate.setText("Осталось " + notification.getDate() + "дней");
         holder.tvRange.setText("Осталось " + notification.getWay() + "км");
+
+        holder.btDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                NotificationsDB db = new NotificationsDB(v.getContext());
+                db.delete(notificationsList.get(position).getId());
+
+                notificationsList.remove(position);  // remove the item from list
+                notifyItemRemoved(position); // notify the adapter about the removed item
+                NotificationsFragment.updateList();
+                Log.e("pos: ", String.valueOf(position));
+            }
+        });
     }
 
     @Override
@@ -48,13 +62,20 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notificationsList.size();
     }
 
+    public void setArrayMyData(ArrayList<Notifications> arrayMyData) {
+        this.notificationsList = arrayMyData;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvName, tvDate, tvRange;
+        Button btDelete, btEdit;
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.notif_name);
-            tvDate = itemView.findViewById(R.id.notif_date);
-            tvRange = itemView.findViewById(R.id.notif_range);
+            tvName = itemView.findViewById(R.id.spending_name);
+            tvDate = itemView.findViewById(R.id.spending_type);
+            tvRange = itemView.findViewById(R.id.spending_date);
+            btDelete = itemView.findViewById(R.id.button_item_delete);
+            btEdit = itemView.findViewById(R.id.button_item_edit);
         }
     }
 }
