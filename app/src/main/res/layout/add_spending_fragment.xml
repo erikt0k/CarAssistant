@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:baselineAligned="false"
-                    android:drawableStart="@drawable/custom_repeat_icon"
+                    android:drawableStart="@drawable/custom_money_icon"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Сумма, руб."

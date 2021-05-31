@@ -3,10 +3,15 @@ package com.example.carassistant.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,10 +20,16 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.carassistant.MainActivity;
 import com.example.carassistant.R;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
+
 public class StartActivity extends AppCompatActivity {
-    private EditText mark, model, year, engine;
+    private EditText model, year, engine;
+    AutoCompleteTextView mark;
     private ImageView imgCar;
     private Button addCar;
     TextView warning;
@@ -28,8 +39,8 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
-
-        pref = getSharedPreferences("CarInfo", MODE_PRIVATE);
+        int def = 0;
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         imgCar = findViewById(R.id.image_car);
         mark = findViewById(R.id.edittext_mark);
         model = findViewById(R.id.edittext_model);
@@ -37,22 +48,44 @@ public class StartActivity extends AppCompatActivity {
         engine = findViewById(R.id.edittext_engine);
         addCar = findViewById(R.id.button_add_car);
         warning = findViewById(R.id.textview_warning);
+        if(getIntent().hasExtra("Info")){
+            Log.i("meow", String.valueOf(mark));
+            StartActivityInfo info=(StartActivityInfo)getIntent().getSerializableExtra("Info");
+            mark.setText(info.getMark());
+            model.setText(info.getModel());
+            year.setText(info.getYear());
+            engine.setText(info.getEngine());
+            def = info.getWay();
+        }
+
+        String[] spendTypes = getResources().getStringArray(R.array.marks_array);
+        List<String> catList = Arrays.asList(spendTypes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line, catList);
+        mark.setAdapter(adapter);
         imgCar.setOnClickListener(view -> {
-//            Intent intent = new Intent(Intent.ACTION_PICK);
-//            intent.setType("image/*");
-//            startActivityForResult(intent, 1);
             openGallery();
         });
+
+        int finalDef = def;
         addCar.setOnClickListener(view -> {
             if (areEditTextsEmpty()){
                 warning.setText("Заполните все поля!");
             } else {
-                SharedPreferences.Editor mark = pref.edit().putString("Mark", this.mark.getText().toString());
-                mark.putString("Model", this.model.getText().toString());
-                mark.putInt("Year", Integer.parseInt(this.year.getText().toString()));
-                mark.putString("Engine", this.engine.getText().toString());
-                mark.apply();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ((BitmapDrawable) imgCar.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                byte[] b = baos.toByteArray();
+                String encoded = Base64.encodeToString(b, Base64.DEFAULT);
+                SharedPreferences.Editor edit = pref.edit().putString("Mark", this.mark.getText().toString());
+                edit.putString("Model", this.model.getText().toString());
+                edit.putString("Year", this.year.getText().toString());
+                edit.putString("Engine", this.engine.getText().toString());
+                edit.putString("Img", encoded);
+                edit.putInt("Way", finalDef);
+                edit.apply();
+                Intent i = new Intent(StartActivity.this, MainActivity.class);
                 finish();
+                startActivity(i);
             }
         });
     }

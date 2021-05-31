@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carassistant.R;
 import com.example.carassistant.ui.Spendings;
-import com.example.carassistant.ui.notifications.NotificationsDB;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,6 +44,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         holder.tvName.setText(spending.getSpendingSum() +" рублей");
         holder.tvDate.setText(spending.getSpendingDate());
         holder.tvType.setText(spending.getSpendingType());
+        holder.tvDescription.setText(spending.getSpendingName());
 
         holder.btDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -69,14 +69,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     }
 
     public static class ViewDashHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvDate, tvType, tvSum;
+        TextView tvName, tvDate, tvType, tvDescription;
         Button btDelete, btEdit;
         public ViewDashHolder(@NonNull @NotNull View itemView) {
             super(itemView);
+
             tvName = itemView.findViewById(R.id.spending_name);
             tvDate = itemView.findViewById(R.id.spending_date);
-            tvType = itemView.findViewById(R.id.spending_type);
-            tvSum = itemView.findViewById(R.id.edit_spending_money);
+            tvType = itemView.findViewById(R.id.tv_info_spending);
+            tvDescription = itemView.findViewById(R.id.tv_name_spending);
             btDelete = itemView.findViewById(R.id.button_spending_delete);
             btEdit = itemView.findViewById(R.id.button_item_edit);
         }

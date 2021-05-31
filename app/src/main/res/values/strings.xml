@@ -19,4 +19,116 @@
         <item>Страховка</item>
         <item>Налог</item>
     </string-array>
+    <string-array name = "marks_array">
+        <item>Acura</item>
+        <item>Alfa Romeo</item>
+        <item>Alphina</item>
+        <item>Asia</item>
+        <item>Aston Martin</item>
+        <item>Audi</item>
+        <item>Bentley</item>
+        <item>BMW</item>
+        <item>Brilliance</item>
+        <item>Bugatti</item>
+        <item>Buick</item>
+        <item>BYD</item>
+        <item>Cadillac</item>
+        <item>Changan</item>
+        <item>Chery</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Citroen</item>
+        <item>Dacia</item>
+        <item>Daewoo</item>
+        <item>Daihatsu</item>
+        <item>Datsun</item>
+        <item>DeLorean</item>
+        <item>Derways</item>
+        <item>Dodge</item>
+        <item>Dongfeng</item>
+        <item>FAW</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Foton</item>
+        <item>Freightliner</item>
+        <item>Geely</item>
+        <item>Genesis</item>
+        <item>GMC</item>
+        <item>Great Wall</item>
+        <item>Hafei</item>
+        <item>Haima</item>
+        <item>Haval</item>
+        <item>Hawtai</item>
+        <item>Hino</item>
+        <item>Honda</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Infinity</item>
+        <item>Iran Khodro</item>
+        <item>Isuzu</item>
+        <item>JAC</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>Kia</item>
+        <item>Koenigsegg</item>
+        <item>Lamborghini</item>
+        <item>Lancia</item>
+        <item>Land Rover</item>
+        <item>Lexus</item>
+        <item>Lifan</item>
+        <item>Lincoln</item>
+        <item>Lotus</item>
+        <item>Luxgen</item>
+        <item>Marussia</item>
+        <item>Maserati</item>
+        <item>Maybach</item>
+        <item>Mazda</item>
+        <item>McLaren</item>
+        <item>Merceds-Benz</item>
+        <item>Mercury</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Mitsuoka</item>
+        <item>Nissan</item>
+        <item>Oldsmobile</item>
+        <item>Opel</item>
+        <item>Pagani</item>
+        <item>Peugeot</item>
+        <item>Plymouth</item>
+        <item>Pontiac</item>
+        <item>Porsche</item>
+        <item>Proton</item>
+        <item>Ravon</item>
+        <item>Renault</item>
+        <item>Renault Samsung</item>
+        <item>Rolls-Royce</item>
+        <item>Rover</item>
+        <item>Saab</item>
+        <item>Saturn</item>
+        <item>Scion</item>
+        <item>SEAT</item>
+        <item>Skoda</item>
+        <item>Smart</item>
+        <item>SsangYong</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>Tesla</item>
+        <item>Tianye</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+        <item>Vortex</item>
+        <item>Zotye</item>
+        <item>ZX</item>
+        <item>Аурус</item>
+        <item>ГАЗ</item>
+        <item>ЗАЗ</item>
+        <item>ИЖ</item>
+        <item>ВАЗ</item>
+        <item>ЛуАз</item>
+        <item>Москвич</item>
+        <item>ТагАЗ</item>
+        <item>УАЗ</item>
+    </string-array>
 </resources>
