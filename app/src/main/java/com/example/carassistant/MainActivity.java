@@ -32,38 +32,38 @@ public class MainActivity extends AppCompatActivity {
             //show sign up activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
         }
-        NotificationManager mNotificationManager;
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this, "notify_001");
-        Intent ii = new Intent(this, NotificationAdapter.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
-
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-
-
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
-        mBuilder.setContentTitle("Your Title");
-        mBuilder.setContentText("Your text");
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
-        mBuilder.setStyle(bigText);
-
-        mNotificationManager =
-                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-// === Removed some obsoletes
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            String channelId = "Your_channel_id";
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_HIGH);
-            mNotificationManager.createNotificationChannel(channel);
-            mBuilder.setChannelId(channelId);
-        }
-
-        mNotificationManager.notify(0, mBuilder.build());
+//        NotificationManager mNotificationManager;
+//
+//        NotificationCompat.Builder mBuilder =
+//                new NotificationCompat.Builder(this, "notify_001");
+//        Intent ii = new Intent(this, NotificationAdapter.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
+//
+//        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+//
+//
+//        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+//        mBuilder.setContentTitle("Your Title");
+//        mBuilder.setContentText("Your text");
+//        mBuilder.setPriority(Notification.PRIORITY_MAX);
+//        mBuilder.setStyle(bigText);
+//
+//        mNotificationManager =
+//                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//// === Removed some obsoletes
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+//        {
+//            String channelId = "Your_channel_id";
+//            NotificationChannel channel = new NotificationChannel(
+//                    channelId,
+//                    "Channel human readable title",
+//                    NotificationManager.IMPORTANCE_HIGH);
+//            mNotificationManager.createNotificationChannel(channel);
+//            mBuilder.setChannelId(channelId);
+//        }
+//
+//        mNotificationManager.notify(0, mBuilder.build());
 
 
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();

@@ -108,7 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                 notificationManager.notify(101, builder.build());
             }
-            else holder.tvInfo.setText("Осталось " + printDifference(new Date(), date1) + " дней");
+            else holder.tvInfo.setText("Осталось " + printDifference(new Date(), date1)+1 + " дней");
             printDifference(date1, new Date());
         } else {
             simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
